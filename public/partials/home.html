@@ -1,6 +1,81 @@
 <div class="blank-slate">
 
 
+<div class="container">
+   <h1>Search characters</h1>
+    <div class="row">    
+        <div class="col-xs-8 col-xs-offset-2">
+		    <div class="input-group">
+
+				<div class="input-group-btn search-panel">
+				    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				      <i></i> Search by<span class="caret"></span>
+				    </button>
+				    <ul class="dropdown-menu" role="menu">
+				      <li><a href="" data-ng-click="searchBy('name')">Name</a></li>
+				      <li><a href="" data-ng-click="searchBy('height')">Height</a></li>
+				      <li><a href="" data-ng-click="searchBy('mass')">Mass</a></li>
+				      <li><a href="" data-ng-click="searchBy('hair_color')">Hair color</a></li>
+				      <li><a href="" data-ng-click="searchBy('skin_color')">Skin color</a></li>
+				      <li><a href="" data-ng-click="searchBy('eye_color')">Eye color</a></li>
+				      <li><a href="" data-ng-click="searchBy('birth_year')">Birth year</a></li>
+				    </ul>
+			  </div>
+
+
+                <div class="input-group-btn search-panel">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    	<span id="search_concept">Filter by</span> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="" data-ng-click="filterBy('contains')">Contains</a></li>
+                      <li><a href="" data-ng-click="filterBy('equalTo')">It's equal</a></li>
+                      <li><a href="" data-ng-click="filterBy('greaterThan')">Greather than ></a></li>
+                      <li><a href="" data-ng-click="filterBy('lessThan')">Less than < </a></li>
+                    </ul>
+                </div>
+                <input type="text" class="form-control" name="x" data-ng-model="searchQuery" placeholder="Search term...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" data-ng-click="search(searchQuery)">Search</button>
+                </span>
+            </div>
+        </div>
+	</div>
+	<div class="container" data-ng-show="searchResults.length > 0">
+
+    <hgroup class="mb20">
+		<h1>Search Results</h1>
+		<h2 class="lead"><strong class="text-danger" data-ng-bind="searchResults.length">3</strong> results were found from the search</h2>								
+	</hgroup>
+
+    <section class="col-xs-12 col-sm-6 col-md-12">
+		<article class="search-result row" data-ng-repeat="character in searchResults track by $index">
+			<div class="col-xs-12 col-sm-12 col-md-3">
+				<a href="#" title="Lorem ipsum" class="thumbnail"><img src="http://lorempixel.com/250/140/people" alt="Lorem ipsum" /></a>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-2">
+				<ul class="meta-search">
+					<li><i>Height: </i> <span data-ng-bind="character.height"></span></li>
+					<li><i>Mass: </i> <span data-ng-bind="character.mass"></span></li>
+					<li><i>Birth year:</i> <span data-ng-bind="character.birth_year"></span></li>
+				</ul>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+				<h3>Name: <a href="" title="" data-ng-bind="character.name"></a></h3>
+				<p>Eye color: <span data-ng-bind="character.eye_color"></span><br/>
+				   Hair color: <span data-ng-bind="character.hair_color"></span></br>
+				   Skin color: <span data-ng-bind="character.skin_color"></span></p>						
+                <span class="plus" ng-if="currentUser.favouriteCharacters.indexOf(character._id) == -1"><a data-ng-click="makeFavourite(character._id)"><i class="glyphicon glyphicon-star-empty"></i></a></span>
+                <span class="plus" ng-if="currentUser.favouriteCharacters.indexOf(character._id) > -1"><a data-ng-click="unFavourite(character._id)"><i class="glyphicon glyphicon-star"></i></a></span>
+			</div>
+			<span class="clearfix borda"></span>
+		</article>
+
+		
+
+	</section>
+</div>
+</div>
 
 
    

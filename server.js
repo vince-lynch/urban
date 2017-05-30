@@ -22,7 +22,7 @@ mongoose.connection.on('error', function() {
   console.log('MongoDB Connection Error. Please make sure that MongoDB is running.');
   process.exit(1);
 });
-app.set('port', process.env.PORT || 3001);
+app.set('port', process.env.PORT || 3002);
 app.use(compression());
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -53,7 +53,7 @@ if (app.get('env') === 'production') {
   });
 }
 
-app.listen(app.get('port'), function() {
+app.listen(3002, 'localhost', function() {
   console.log('Express server listening on port ' + app.get('port'));
 });
 

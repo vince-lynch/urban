@@ -7,11 +7,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-        <div class="geekLogo"></div>
+      <a href="/" class="navbar-brand">Project name</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-
+        <li ng-class="{ active: isActive('/')}"><a href="/">Home</a></li>
+        <li ng-class="{ active: isActive('/contact')}"><a href="/contact">Contact</a></li>
       </ul>
       <ul ng-if="isAuthenticated()" class="nav navbar-nav navbar-right">
         <li class="dropdown">
@@ -25,8 +26,9 @@
           </ul>
         </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-
+      <ul ng-if="!isAuthenticated()" class="nav navbar-nav navbar-right">
+        <li ng-class="{ active: isActive('/login')}"><a href="/login">Log in</a></li>
+        <li ng-class="{ active: isActive('/signup')}"><a href="/signup">Sign up</a></li>
       </ul>
     </div>
   </div>
