@@ -1,17 +1,20 @@
   var
   express              = require('express'),
-  router               = express.Router();
+  router               = express.Router(),
+  jwt                  = require('jsonwebtoken');
 
 var Character           = require('../models/characters.model.js'),
     characterController = require('../controllers/characters.controller.js'),
-    userController      = require('../controllers/users.controller.js');
+    userController      = require('../controllers/users.controller.js'),
+    User                = require('../models/User');
 
 
 router.use(function(req, res, next) {
   req.isAuthenticated = function() {
     var token = (req.headers.authorization && req.headers.authorization.split(' ')[1]) || req.cookies.token;
+    console.log("trying token", token);
     try {
-      return jwt.verify(token, "somesecret124389");
+      return jwt.verify(token, "secret");
     } catch (err) {
       return false;
     }
@@ -36,6 +39,6 @@ router.post('/api/characterSearch', characterController.characterSearch)
 
 router.post('/signup', userController.signupPost);
 router.post('/login', userController.loginPost);
-router.post('/account', userController.accountPut);
+router.post('/account',userController.ensureAuthenticated,userController.accountPut);
 
 module.exports = router;

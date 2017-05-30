@@ -14,7 +14,7 @@ function generateToken(user) {
     iat: moment().unix(),
     exp: moment().add(7, 'days').unix()
   };
-  return jwt.sign(payload, "somesecret124389");
+  return jwt.sign(payload, "secret");
 }
 
 /**
