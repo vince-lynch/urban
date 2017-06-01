@@ -7,6 +7,14 @@ angular.module('MyApp', ['ngRoute', 'satellizer'])
         templateUrl: 'partials/home.html',
         controller: 'MainCtrl'
       })
+      .when('/allCharacters', {
+        templateUrl: 'partials/allCharacters.html',
+        controller: 'MainCtrl'
+      })
+      .when('/edit/:id', {
+        templateUrl: 'partials/edit.html',
+        controller: 'MainCtrl'
+      })
       .when('/contact', {
         templateUrl: 'partials/contact.html',
         controller: 'ContactCtrl'

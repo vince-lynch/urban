@@ -1,10 +1,23 @@
 angular.module('MyApp')
-  .controller('MainCtrl', function($scope, $rootScope, $location, $window, $auth, $http) {
+  .controller('MainCtrl', function($scope, $routeParams, $rootScope, $location, $window, $auth, $http) {
 
 	console.log("main controller loaded");
     $scope.filterSelected     = "contains";
     $scope.searchTypeSelected = "name";
     $scope.searchResults      = [];
+    $scope.allCharacters      = [];
+
+    window.routeParams = $routeParams.id;
+    $scope.selectedCharacterId = $routeParams.id;
+
+    $scope.getCharacterById = function(selectedCharacterId){
+       console.log("getCharacterById(), _id:", selectedCharacterId);
+       $http.get("/api/character/" + selectedCharacterId, {})
+        .then(function (response) {
+            console.log("response", response);
+            $scope.selectedCharacter = response.data.character;
+        });
+    }
 
     $scope.filterBy = function(filterBy){
       console.log("filterBy", filterBy);
@@ -19,13 +32,21 @@ angular.module('MyApp')
 	$scope.search = function(query){
 	  console.log("search - query", query);
       var field = $scope.searchTypeSelected;
-      $http.post("/api/characterSearch", {field: field, query: query, filter: $scope.filterSelected})
+      $http.get("/api/characterSearch", {field: field, query: query, filter: $scope.filterSelected})
         .then(function (response) {
             console.log("response", response);
             $scope.searchResults = response.data.characters;
         });
-
 	}
+
+  $scope.getAllCharacters = function(){
+        
+      $http.get("/api/characters", {})
+        .then(function (response) {
+            console.log("response", response);
+            $scope.allCharacters = response.data.characters;
+        });
+  }
 
   $scope.isAuthenticated = function() {
     return $auth.isAuthenticated();

@@ -48,7 +48,11 @@ exports.allCharacters = function(req, res) {
  */
 exports.characterGet = function(req, res) {
   console.log("reached characterGet");
-
+  Character.findById(req.params.id, function(err, character) {
+    if(character){
+    	res.json({character: character})
+    }
+  })
 };
 
 /**

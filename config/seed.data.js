@@ -8,7 +8,8 @@ exports.data = {
         "skin_color": "fair",
         "eye_color": "blue",
         "birth_year": "19BBY",
-        "is_male": true
+        "is_male": true,
+        "image": "luke.jpg"
     }, {
         "name": "C-3PO",
         "height": 167,
@@ -17,7 +18,9 @@ exports.data = {
         "skin_color": "gold",
         "eye_color": "yellow",
         "birth_year": "112BBY",
-        "is_male": true
+        "is_male": true,
+        "image": "c3po.png"
+
     }, {
       "name": "Leia Organa",
           "height": 150,
@@ -26,7 +29,8 @@ exports.data = {
           "skin_color": "light",
           "eye_color": "brown",
           "birth_year": "19BBY",
-          "is_male": false
+          "is_male": false,
+          "image": "leia.jpg"
     }, {
         "name": "Darth Vader",
         "height": 202,
@@ -35,7 +39,18 @@ exports.data = {
         "skin_color": "white",
         "eye_color": "yellow",
         "birth_year": "41.9BBY",
-        "is_male": true
+        "is_male": true,
+        "image": "darth.jpg"
+    }, {
+        "name": "Han Solo",
+        "height": 232,
+        "mass": 166,
+        "hair_color": "Brown",
+        "skin_color": "white",
+        "eye_color": "Brown",
+        "birth_year": "19BBYY",
+        "is_male": true,
+        "image": "han.jpg"
     }
   ]
 }

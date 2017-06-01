@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="panel container" ng-init="getCharacterById(selectedCharacterId)">
+  
+  <hgroup class="mb20">
+    <h1>Edit</h1>       
+  </hgroup>
+
+    <section class="col-xs-12 col-sm-6 col-md-12">
+      <article class="search-result row" >
+        <div class="col-xs-12 col-sm-12 col-md-3">
+          <a href="#" title="Lorem ipsum" class="thumbnail"><img ng-src="/images/{{selectedCharacter.image}}" alt="Lorem ipsum" /></a>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-2">
+          <ul class="meta-search">
+            <li><i>Height: </i> <span data-ng-bind="selectedCharacter.height"></span></li>
+            <li><i>Mass: </i> <span data-ng-bind="selectedCharacter.mass"></span></li>
+            <li><i>Birth year:</i> <span data-ng-bind="selectedCharacter.birth_year"></span></li>
+          </ul>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+          <h3>Name: <a href="" title="" data-ng-bind="selectedCharacter.name"></a></h3>
+          <p>Eye color: <span data-ng-bind="selectedCharacter.eye_color"></span><br/>
+             Hair color: <span data-ng-bind="selectedCharacter.hair_color"></span></br>
+             Skin color: <span data-ng-bind="selectedCharacter.skin_color"></span></p>            
+                  <span class="plus" ng-if="currentUser.favouriteCharacters.indexOf(selectedCharacter._id) == -1"><a data-ng-click="makeFavourite(character._id)"><i class="glyphicon glyphicon-star-empty"></i></a></span>
+                  <span class="plus" ng-if="currentUser.favouriteCharacters.indexOf(selectedCharacter._id) > -1"><a data-ng-click="unFavourite(selectedCharacter._id)"><i class="glyphicon glyphicon-star"></i></a></span>
+                  <a href="/edit/{{selectedCharacter._id}}"><span>Edit</span></a>
+        </div>
+        <span class="clearfix borda"></span>
+      </article>
+
+      
+
+    </section>
+
+  </div>
+</div>

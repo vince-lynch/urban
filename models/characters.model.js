@@ -9,7 +9,8 @@ var characterSchema = new mongoose.Schema({
   skin_color: String,
   eye_color : String,
   birth_year: String,
-  is_male   : Boolean
+  is_male   : Boolean,
+  image     : String
 });
 
 
