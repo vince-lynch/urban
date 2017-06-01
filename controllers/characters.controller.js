@@ -23,10 +23,18 @@ var loadSeedData = function(){
 	})
 
 }
-if (!fs.existsSync("config/firstload")) {
-	console.log("application running for first time");
-	loadSeedData();
-}//
+// if (!fs.existsSync("config/firstload")) {
+// 	console.log("application running for first time");
+// 	loadSeedData();
+// }
+Character.remove({}, function(err, row) { // Restart seedData in db when loaded
+  if (err) {
+      console.log("Collection couldn't be removed" + err);
+      loadSeedData();
+  }
+  console.log("collection removed");
+  loadSeedData();
+}) 
 
 
 

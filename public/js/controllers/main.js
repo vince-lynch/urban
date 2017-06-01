@@ -89,6 +89,8 @@ angular.module('MyApp')
     }
 
 	$scope.search = function(query){
+    $scope.searchResults = []; // clear last results;
+    
 	  console.log("search - query", query);
       var field = $scope.searchTypeSelected;
       if(!$window.localStorage.allCharacters || $window.localStorage.allCharacters == "[]" ){
@@ -102,40 +104,43 @@ angular.module('MyApp')
          var data = {}
          var filter = $scope.filterSelected;
          data[field] = query;
-         switch(filter){
-            case 'contains':
-              console.log("reached contains");
-              //data[field] = new RegExp(query, 'i');
-              _.find(theCache, function(item){
-                console.log("item", item)
-                console.log(item[field].indexOf(query))
-                if(item[field].indexOf(query) > -1){
-                  $scope.searchResults.push(item);
-                }
-              })
-              break;
-            case 'equalTo':
-              console.log("reached equalTo");
-              data[field] = query;
-              $scope.searchResults = _.where(theCache, data)
-              break;
-            case 'greaterThan':
-              console.log("reached greaterThan");
-              _.filter(theCache,function(v){
-                if(v[field] > query){
-                  $scope.searchResults.push(v);
-                }
-              });
-              break;
-          case 'lessThan':
-              console.log("reached lessThan");
-              _.filter(theCache,function(v){
-                if(v[field] < query){
-                  $scope.searchResults.push(v);
-                }
-              });
-              break;
-          }
+         if(query != undefined){
+           switch(filter){
+              case 'contains':
+                console.log("reached contains");
+                //data[field] = new RegExp(query, 'i');
+                _.find(theCache, function(item){
+                  console.log(item[field].indexOf(query))
+                  if(item[field].indexOf(query) > -1){
+                    $scope.searchResults.push(item);
+                  }
+                })
+                break;
+              case 'equalTo':
+                console.log("reached equalTo");
+                data[field] = query;
+                $scope.searchResults = _.where(theCache, data)
+                break;
+              case 'greaterThan':
+                console.log("reached greaterThan");
+                _.filter(theCache,function(v){
+                  if(v[field] > query){
+                    $scope.searchResults.push(v);
+                  }
+                });
+                break;
+              case 'lessThan':
+                console.log("reached lessThan");
+                _.filter(theCache,function(v){
+                  if(v[field] < query){
+                    $scope.searchResults.push(v);
+                  }
+                });
+                break;
+            }
+         } else {
+            $scope.searchResults = theCache;
+         }
          
       }
 
