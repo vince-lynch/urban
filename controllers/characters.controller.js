@@ -1,4 +1,5 @@
 var fs        = require('fs'),
+    multer    = require('multer'),
     Character = require('../models/characters.model.js'),
     seedData  = require('../config/seed.data.js').data;
 
@@ -27,6 +28,35 @@ if (!fs.existsSync("config/firstload")) {
 	loadSeedData();
 }//
 
+
+
+// For Image Upload
+var storage = multer.diskStorage({ //multers disk storage settings
+    destination: function (req, file, cb) {
+        cb(null, './public/images/')
+    },
+    filename: function (req, file, cb) {
+        var datetimestamp = Date.now();
+        cb(null, file.originalname.replace(/\s/g,'').split('.')[0] + Date.now() + "." + file.originalname.split('.')[1])
+    }
+});
+
+var upload = multer({storage: storage}).single('file');
+
+
+exports.uploadImage = function(req,res){
+    upload(req, res, function (err) {
+	      if (err) {
+	        // An error occurred when uploading
+	        console.log(err);
+	        return res.status(422).send("an Error occured")
+	      }  else {
+	      	console.log('req.file.filename',req.file.filename);
+	      	console.log("file uploaded to local:");
+	      	res.json({success: "file uploaded", newFile: req.file.filename})
+	      }
+	})
+}
 
 
 /**

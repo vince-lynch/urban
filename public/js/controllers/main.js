@@ -1,11 +1,12 @@
 angular.module('MyApp')
-  .controller('MainCtrl', function($scope, $routeParams, $rootScope, $location, $window, $auth, $http) {
+  .controller('MainCtrl', function($scope, $routeParams, Upload, $rootScope, $location, $window, $auth, $http) {
 
 	console.log("main controller loaded");
     $scope.filterSelected     = "contains";
     $scope.searchTypeSelected = "name";
     $scope.searchResults      = [];
     $scope.allCharacters      = [];
+    $scope.selectedCharacter  = {};
 
     window.routeParams = $routeParams.id;
     $scope.selectedCharacterId = $routeParams.id;
@@ -27,6 +28,38 @@ angular.module('MyApp')
           //
       });
     }
+
+    $scope.uploadImage = function(file){ //function to call on form submit
+        console.log("uploadImage - file:", file);
+          console.log("valid file?", file);
+          if(file != null && file !=undefined){
+
+              Upload.upload({
+                  url: '/api/uploadCharacterImage', //webAPI exposed to upload the file
+                  data:{file:file} //pass file as data, should be user ng-model
+              }).then(function (response) { //upload function returns a promise
+   
+
+                  console.log("upload response", response);
+                  $scope.selectedCharacter.image = response.data.newFile;
+
+              }, function (resp) { //catch error
+                  console.log('Error status: ' + resp.status);
+                  //$window.alert('Error status: ' + resp.status);
+              }, function (evt) { 
+                  console.log(evt);
+                  var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                  console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+                  $scope.progress = 'progress: ' + progressPercentage + '% '; // capture upload progress
+              });
+
+          }
+    }
+
+
+
+
+
 
     $scope.filterBy = function(filterBy){
       console.log("filterBy", filterBy);

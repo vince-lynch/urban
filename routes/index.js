@@ -31,6 +31,8 @@ router.use(function(req, res, next) {
   }
 });
 
+
+router.post('/api/uploadCharacterImage', characterController.uploadImage);
 router.get('/api/character/:id', characterController.characterGet);
 router.post('/api/character/:id', characterController.characterUpdate);
 router.get('/api/characters', characterController.allCharacters)

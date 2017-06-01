@@ -9,6 +9,22 @@
       <article class="search-result row" >
         <div class="col-xs-12 col-sm-12 col-md-3">
           <a href="#" title="Lorem ipsum" class="thumbnail"><img ng-src="/images/{{selectedCharacter.image}}" alt="Lorem ipsum" /></a>
+          <input type="file" 
+                 ngf-select 
+                 ng-model="file" 
+                 name="file" 
+                 id="file"
+                 ngf-pattern="'image/*'"
+                 accept="image/*" 
+                 ngf-max-size="12MB" 
+                 ng-change="uploadImage(file)"
+                 />
+              <!-- Image thumbnail: <img style="width:100px;" ngf-thumbnail="file || '/thumb.jpg'"/> -->
+              <!-- <i ng-show="upload_form.file.$error.required">*required</i><br> -->
+              <div ng-if='progress != "progress: 100%"'>{{progress}}</div><div ng-if='progress == "progress: 100%"'>New Image Uploaded</div>
+              <i ng-show="upload_form.file.$error.maxSize">File too large 
+              {{up.file.size / 1000000|number:1}}MB: max 12M</i>
+             <!--  <button type="submit" ng-click="submit(file)">submit</button> -->
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
           <!-- <ul class="meta-search"> -->
