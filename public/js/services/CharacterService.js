@@ -4,6 +4,9 @@ angular.module('MyApp')
       updateCharacter: function(selectedCharacter) {
         return $http.post("/api/character/" + selectedCharacter._id, {character: selectedCharacter});
       },
+      createCharacter: function(newCharacter){
+      	return $http.post('/api/createCharacter', {newCharacter: newCharacter})
+      },
       getCharacter: function(id){
       	return $http.get("/api/character/" + id);
       },

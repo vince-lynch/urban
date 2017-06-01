@@ -11,6 +11,10 @@ angular.module('MyApp', ['ngRoute', 'satellizer', 'ngFileUpload'])
         templateUrl: 'partials/allCharacters.html',
         controller: 'MainCtrl'
       })
+      .when('/createCharacter', {
+        templateUrl: 'partials/character-new.html',
+        controller: 'MainCtrl'
+      })
       .when('/edit/:id', {
         templateUrl: 'partials/character-edit.html',
         controller: 'MainCtrl'

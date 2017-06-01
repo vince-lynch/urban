@@ -178,3 +178,18 @@ exports.characterDelete = function(req, res) {
 	  
 	}) 
 }
+
+exports.characterCreate = function(req,res){
+	var newCharacter = req.body.newCharacter;
+
+	Character.create(newCharacter, function(err, row) { 
+	  if (err) {
+	      console.log("Character couldn't be created" + err);
+	      res.json({message: "Character couldn't be created"})
+	  } else {
+	  	console.log("Character created");
+	  	 res.json({message: "Character created"})
+	  }
+	  
+	}) 
+}

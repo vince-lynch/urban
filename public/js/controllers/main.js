@@ -7,6 +7,7 @@ angular.module('MyApp')
     $scope.searchResults      = [];
     $scope.allCharacters      = [];
     $scope.selectedCharacter  = {};
+    $scope.newCharacter       = {};
 
     // $scope.$watch('allCharacters', function(){
     //   if($scope.allCharacters != []){
@@ -42,6 +43,17 @@ angular.module('MyApp')
         })
     }
 
+    $scope.createCharacter = function(newCharacter){
+      console.log('createCharacter', newCharacter);
+      $scope.allCharacters.push(newCharacter);
+      $window.localStorage.allCharacters = JSON.stringify($scope.allCharacters);
+
+      CharacterService.createCharacter(newCharacter)
+        .then(function(response) {
+            console.log("response", response);
+        })
+    }
+
     $scope.updateCharacter = function(selectedCharacter){
       console.log("updateCharacter(), characterObj:", selectedCharacter);
       var i = 0;
@@ -71,6 +83,7 @@ angular.module('MyApp')
 
                   console.log("upload response", response);
                   $scope.selectedCharacter.image = response.data.newFile;
+                  $scope.newCharacter.image      = response.data.newFile;
 
               }, function (resp) { //catch error
                   console.log('Error status: ' + resp.status);
