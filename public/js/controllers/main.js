@@ -19,6 +19,15 @@ angular.module('MyApp')
         });
     }
 
+    $scope.updateCharacter = function(selectedCharacter){
+      console.log("updateCharacter(), characterObj:", selectedCharacter)
+      $http.post("/api/character/" + selectedCharacter._id, {character: selectedCharacter})
+      .then(function (response) {
+          console.log("response", response);
+          //
+      });
+    }
+
     $scope.filterBy = function(filterBy){
       console.log("filterBy", filterBy);
       $scope.filterSelected = filterBy;
@@ -32,7 +41,7 @@ angular.module('MyApp')
 	$scope.search = function(query){
 	  console.log("search - query", query);
       var field = $scope.searchTypeSelected;
-      $http.get("/api/characterSearch", {field: field, query: query, filter: $scope.filterSelected})
+      $http.post("/api/characterSearch", {field: field, query: query, filter: $scope.filterSelected})
         .then(function (response) {
             console.log("response", response);
             $scope.searchResults = response.data.characters;

@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="panel container" ng-init="getCharacterById(selectedCharacterId)">
+  
+  <hgroup class="mb20">
+    <h1>Edit Character</h1>       
+  </hgroup>
+
+    <section class="col-xs-12 col-sm-6 col-md-12">
+      <article class="search-result row" >
+        <div class="col-xs-12 col-sm-12 col-md-3">
+          <a href="#" title="Lorem ipsum" class="thumbnail"><img ng-src="/images/{{selectedCharacter.image}}" alt="Lorem ipsum" /></a>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <!-- <ul class="meta-search"> -->
+          <h3>Name: <input class="form-control" title="" data-ng-model="selectedCharacter.name"></a></h3>
+          <p>Eye color: <input class="form-control" data-ng-model="selectedCharacter.eye_color"></input><br/>
+             Hair color: <input class="form-control" data-ng-model="selectedCharacter.hair_color"></input></br>
+             Skin color: <input class="form-control" data-ng-model="selectedCharacter.skin_color"></input></p>
+            <i>Height: </i> <input class="form-control" data-ng-model="selectedCharacter.height"></input>
+            <i>Mass: </i> <input  class="form-control" data-ng-model="selectedCharacter.mass"></input>
+            <i>Birth year:</i> <input class="form-control" data-ng-model="selectedCharacter.birth_year"></input>
+<!--           </ul> -->
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+                    
+                 
+                  
+            <button class="btn btn-success" data-ng-click="updateCharacter(selectedCharacter)">Update</button>
+            <a href="/delete/{{selectedCharacter._id}}"><button class="btn btn-warning">Delete</button></a> 
+        </div>
+        <span class="clearfix borda"></span>
+      </article>
+
+      
+
+    </section>
+
+  </div>
+</div>

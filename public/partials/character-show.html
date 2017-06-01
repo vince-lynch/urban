@@ -2,7 +2,7 @@
   <div class="panel container" ng-init="getCharacterById(selectedCharacterId)">
   
   <hgroup class="mb20">
-    <h1>Edit</h1>       
+    <h1>Character Vitals</h1>       
   </hgroup>
 
     <section class="col-xs-12 col-sm-6 col-md-12">
@@ -24,7 +24,9 @@
              Skin color: <span data-ng-bind="selectedCharacter.skin_color"></span></p>            
                   <span class="plus" ng-if="currentUser.favouriteCharacters.indexOf(selectedCharacter._id) == -1"><a data-ng-click="makeFavourite(character._id)"><i class="glyphicon glyphicon-star-empty"></i></a></span>
                   <span class="plus" ng-if="currentUser.favouriteCharacters.indexOf(selectedCharacter._id) > -1"><a data-ng-click="unFavourite(selectedCharacter._id)"><i class="glyphicon glyphicon-star"></i></a></span>
+                  
                   <a href="/edit/{{selectedCharacter._id}}"><span>Edit</span></a>
+                  <a href="/delete/{{selectedCharacter._id}}"><span>Delete</span></a> 
         </div>
         <span class="clearfix borda"></span>
       </article>

@@ -12,7 +12,15 @@ angular.module('MyApp', ['ngRoute', 'satellizer'])
         controller: 'MainCtrl'
       })
       .when('/edit/:id', {
-        templateUrl: 'partials/edit.html',
+        templateUrl: 'partials/character-edit.html',
+        controller: 'MainCtrl'
+      })
+      .when('/show/:id', {
+        templateUrl: 'partials/character-show.html',
+        controller: 'MainCtrl'
+      })
+      .when('/delete/:id', {
+        templateUrl: 'partials/character-delete.html',
         controller: 'MainCtrl'
       })
       .when('/contact', {

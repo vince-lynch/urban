@@ -8,7 +8,7 @@
     <section class="col-xs-12 col-sm-6 col-md-12">
       <article class="search-result row" data-ng-repeat="character in allCharacters track by $index">
         <div class="col-xs-12 col-sm-12 col-md-3">
-          <a href="#" title="Lorem ipsum" class="thumbnail"><img ng-src="/images/{{character.image}}" alt="Lorem ipsum" /></a>
+          <a href="/show/{{character._id}}" class="thumbnail"><img ng-src="/images/{{character.image}}" alt="Lorem ipsum" /></a>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-2">
           <ul class="meta-search">
@@ -24,7 +24,9 @@
              Skin color: <span data-ng-bind="character.skin_color"></span></p>            
                   <span class="plus" ng-if="currentUser.favouriteCharacters.indexOf(character._id) == -1"><a data-ng-click="makeFavourite(character._id)"><i class="glyphicon glyphicon-star-empty"></i></a></span>
                   <span class="plus" ng-if="currentUser.favouriteCharacters.indexOf(character._id) > -1"><a data-ng-click="unFavourite(character._id)"><i class="glyphicon glyphicon-star"></i></a></span>
-                  <a href="/edit/{{character._id}}"><span>Edit</span></a>
+                  <a href="/show/{{character._id}}"><span>View Details</span></a><br/>
+                  <a href="/edit/{{character._id}}"><span>Edit</span></a> 
+                  <a href="/delete/{{character._id}}"><span>Delete</span></a> 
         </div>
         <span class="clearfix borda"></span>
       </article>

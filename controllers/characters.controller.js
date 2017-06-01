@@ -102,5 +102,25 @@ exports.characterSearch = function(req, res) {
 exports.characterUpdate = function(req, res) {
 
   console.log("reached characterUpdate");
+	Character.findOne({_id: req.params.id}, function(err, character) {
+		if(character){
+			character.name       = req.body.character.name;
+			character.height     = req.body.character.height;
+			character.mass       = req.body.character.mass;
+			character.hair_color = req.body.character.hair_color;
+			character.skin_color = req.body.character.skin_color;
+			character.eye_color  = req.body.character.eye_color;
 
+			character.birth_year = req.body.character.birth_year;
+			character.is_male    = req.body.character.is_male;
+			character.image      = req.body.character.image;
+
+			character.save(function(err, doc){
+				if(!err){
+					res.json({character: character})
+				}
+			})
+		}
+	})
 };
+
