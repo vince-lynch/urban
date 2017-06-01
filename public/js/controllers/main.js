@@ -8,11 +8,11 @@ angular.module('MyApp')
     $scope.allCharacters      = [];
     $scope.selectedCharacter  = {};
 
-    $scope.$watch('allCharacters', function(){
-      if($scope.allCharacters != []){
-        $window.localStorage.allCharacters = JSON.stringify($scope.allCharacters);
-      }
-    })
+    // $scope.$watch('allCharacters', function(){
+    //   if($scope.allCharacters != []){
+    //     $window.localStorage.allCharacters = JSON.stringify($scope.allCharacters);
+    //   }
+    // })
 
     window.routeParams = $routeParams.id;
     $scope.selectedCharacterId = $routeParams.id;
@@ -98,7 +98,45 @@ angular.module('MyApp')
             $scope.searchResults = response.data.characters;
         })
       } else {
-         $scope.searchResults = JSON.parse($window.localStorage.allCharacters);
+         var theCache =  JSON.parse($window.localStorage.allCharacters);
+         var data = {}
+         var filter = $scope.filterSelected;
+         data[field] = query;
+         switch(filter){
+            case 'contains':
+              console.log("reached contains");
+              //data[field] = new RegExp(query, 'i');
+              _.find(theCache, function(item){
+                console.log("item", item)
+                console.log(item[field].indexOf(query))
+                if(item[field].indexOf(query) > -1){
+                  $scope.searchResults.push(item);
+                }
+              })
+              break;
+            case 'equalTo':
+              console.log("reached equalTo");
+              data[field] = query;
+              $scope.searchResults = _.where(theCache, data)
+              break;
+            case 'greaterThan':
+              console.log("reached greaterThan");
+              _.filter(theCache,function(v){
+                if(v[field] > query){
+                  $scope.searchResults.push(v);
+                }
+              });
+              break;
+          case 'lessThan':
+              console.log("reached lessThan");
+              _.filter(theCache,function(v){
+                if(v[field] < query){
+                  $scope.searchResults.push(v);
+                }
+              });
+              break;
+          }
+         
       }
 
 	}
@@ -109,6 +147,7 @@ angular.module('MyApp')
       .then(function(response) {
           console.log("response", response);
           $scope.allCharacters = response.data.characters;
+          $window.localStorage.allCharacters = JSON.stringify($scope.allCharacters);
       })
     } else {
       $scope.allCharacters = JSON.parse($window.localStorage.allCharacters);
