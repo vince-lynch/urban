@@ -58,19 +58,7 @@ angular.module('MyApp', ['ngRoute', 'satellizer', 'ngFileUpload'])
 
     $authProvider.loginUrl = '/login';
     $authProvider.signupUrl = '/signup';
-    $authProvider.facebook({
-      url: '/auth/facebook',
-      clientId: '980220002068787',
-      redirectUri: 'http://localhost:3000/auth/facebook/callback'
-    });
-    $authProvider.google({
-      url: '/auth/google',
-      clientId: '631036554609-v5hm2amv4pvico3asfi97f54sc51ji4o.apps.googleusercontent.com'
-    });
-    $authProvider.github({
-      url: '/auth/github',
-      clientId: 'c8d5bf482c0ece46fa1a'
-    });
+
 
     function skipIfAuthenticated($location, $auth) {
       if ($auth.isAuthenticated()) {

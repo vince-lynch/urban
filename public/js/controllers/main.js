@@ -1,5 +1,5 @@
 angular.module('MyApp')
-  .controller('MainCtrl', function($scope, $routeParams, Upload, $rootScope, $location, $window, $auth, $http) {
+  .controller('MainCtrl', function($scope, $routeParams, Upload, $rootScope, $location, $window, $auth, $http, CharacterService) {
 
 	console.log("main controller loaded");
     $scope.filterSelected     = "contains";
@@ -8,25 +8,46 @@ angular.module('MyApp')
     $scope.allCharacters      = [];
     $scope.selectedCharacter  = {};
 
+    $scope.$watch('allCharacters', function(){
+      if($scope.allCharacters != []){
+        $window.localStorage.allCharacters = JSON.stringify($scope.allCharacters);
+      }
+    })
+
     window.routeParams = $routeParams.id;
     $scope.selectedCharacterId = $routeParams.id;
 
+
+    $scope.deleteCharacterById = function(selectedCharacterId){
+        CharacterService.deleteCharacter(selectedCharacterId)
+        .then(function(response) {
+            console.log("response", response);
+        })
+    }
+
     $scope.getCharacterById = function(selectedCharacterId){
        console.log("getCharacterById(), _id:", selectedCharacterId);
-       $http.get("/api/character/" + selectedCharacterId, {})
-        .then(function (response) {
+       
+       CharacterService.getCharacter(selectedCharacterId)
+        .then(function(response) {
             console.log("response", response);
             $scope.selectedCharacter = response.data.character;
-        });
+        })
     }
 
     $scope.updateCharacter = function(selectedCharacter){
-      console.log("updateCharacter(), characterObj:", selectedCharacter)
-      $http.post("/api/character/" + selectedCharacter._id, {character: selectedCharacter})
-      .then(function (response) {
-          console.log("response", response);
-          //
-      });
+      console.log("updateCharacter(), characterObj:", selectedCharacter);
+      var i = 0;
+      for(i in $scope.allCharacters){
+        if($scope.allCharacters[i]._id == selectedCharacter._id){
+          $scope.allCharacters[i] = selectedCharacter;
+        }
+      }
+
+      CharacterService.updateCharacter(selectedCharacter)
+        .then(function(response) {
+            console.log("response", response);
+        })
     }
 
     $scope.uploadImage = function(file){ //function to call on form submit
@@ -57,10 +78,6 @@ angular.module('MyApp')
     }
 
 
-
-
-
-
     $scope.filterBy = function(filterBy){
       console.log("filterBy", filterBy);
       $scope.filterSelected = filterBy;
@@ -74,20 +91,28 @@ angular.module('MyApp')
 	$scope.search = function(query){
 	  console.log("search - query", query);
       var field = $scope.searchTypeSelected;
-      $http.post("/api/characterSearch", {field: field, query: query, filter: $scope.filterSelected})
-        .then(function (response) {
+      if(!$window.localStorage.allCharacters || $window.localStorage.allCharacters == "[]" ){
+        CharacterService.search({field: field, query: query, filter: $scope.filterSelected})
+        .then(function(response) {
             console.log("response", response);
             $scope.searchResults = response.data.characters;
-        });
+        })
+      } else {
+         $scope.searchResults = JSON.parse($window.localStorage.allCharacters);
+      }
+
 	}
 
-  $scope.getAllCharacters = function(){
-        
-      $http.get("/api/characters", {})
-        .then(function (response) {
-            console.log("response", response);
-            $scope.allCharacters = response.data.characters;
-        });
+  $scope.getAllCharacters = function(){   
+    if(!$window.localStorage.allCharacters || $window.localStorage.allCharacters == "[]" ){
+       CharacterService.getAll()
+      .then(function(response) {
+          console.log("response", response);
+          $scope.allCharacters = response.data.characters;
+      })
+    } else {
+      $scope.allCharacters = JSON.parse($window.localStorage.allCharacters);
+    }    
   }
 
   $scope.isAuthenticated = function() {
