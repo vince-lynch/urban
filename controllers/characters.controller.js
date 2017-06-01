@@ -162,3 +162,19 @@ exports.characterUpdate = function(req, res) {
 	})
 };
 
+
+/**
+ * Delete /character
+ */
+exports.characterDelete = function(req, res) {
+	Character.remove({_id: req.params.id}, function(err, row) { 
+	  if (err) {
+	      console.log("Character couldn't be removed" + err);
+	      res.json({message: "Character couldn't be removed"})
+	  } else {
+	  	console.log("Character removed");
+	  	 res.json({message: "Character removed"})
+	  }
+	  
+	}) 
+}

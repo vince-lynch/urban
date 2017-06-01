@@ -23,6 +23,13 @@ angular.module('MyApp')
         .then(function(response) {
             console.log("response", response);
         })
+      var i = 0;
+      for(i in $scope.allCharacters){
+        if($scope.allCharacters[i]._id == selectedCharacter._id){
+          $scope.allCharacters.splice(i,1);
+          $window.localStorage.allCharacters = JSON.stringify($scope.allCharacters);
+        }
+      }
     }
 
     $scope.getCharacterById = function(selectedCharacterId){
@@ -41,6 +48,7 @@ angular.module('MyApp')
       for(i in $scope.allCharacters){
         if($scope.allCharacters[i]._id == selectedCharacter._id){
           $scope.allCharacters[i] = selectedCharacter;
+          $window.localStorage.allCharacters = JSON.stringify($scope.allCharacters);
         }
       }
 
@@ -90,7 +98,7 @@ angular.module('MyApp')
 
 	$scope.search = function(query){
     $scope.searchResults = []; // clear last results;
-    
+
 	  console.log("search - query", query);
       var field = $scope.searchTypeSelected;
       if(!$window.localStorage.allCharacters || $window.localStorage.allCharacters == "[]" ){

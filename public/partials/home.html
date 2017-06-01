@@ -5,11 +5,11 @@
    <h1>Search characters</h1>
     <div class="row">    
         <div class="col-xs-8 col-xs-offset-2">
-		    <div class="input-group">
+		    <div class="input-group">    
 
 				<div class="input-group-btn search-panel">
 				    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-				      <i></i> Search by<span class="caret"></span>
+				      <i></i> Search by: <span style="color: grey">{{searchTypeSelected}}</span><span class="caret"></span>
 				    </button>
 				    <ul class="dropdown-menu" role="menu">
 				      <li><a href="" data-ng-click="searchBy('name')">Name</a></li>
@@ -25,7 +25,7 @@
 
                 <div class="input-group-btn search-panel">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    	<span id="search_concept">Filter by</span> <span class="caret"></span>
+                    	<span id="search_concept">Filter by:  <span style="color: grey">{{filterSelected}}</span></span> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
                       <li><a href="" data-ng-click="filterBy('contains')">Contains</a></li>
@@ -61,7 +61,7 @@
 				</ul>
 			</div>
 			<div class="col-xs-12 col-sm-12 col-md-7 excerpet">
-				<h3>Name: <a href="" title="" data-ng-bind="character.name"></a></h3>
+				<a href="/show/{{character._id}}"><h3>Name: <span title="" data-ng-bind="character.name"></span></h3></a>
 				<p>Eye color: <span data-ng-bind="character.eye_color"></span><br/>
 				   Hair color: <span data-ng-bind="character.hair_color"></span></br>
 				   Skin color: <span data-ng-bind="character.skin_color"></span></p>						
